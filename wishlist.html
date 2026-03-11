@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wishlist | SHOP-IT</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-gray-50">
+
+    <nav class="sticky top-0 z-50 bg-white shadow-md">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="index.html" class="flex items-center space-x-2">
+                <i class="fas fa-store text-indigo-600 text-2xl"></i>
+                <span class="text-2xl font-black text-indigo-600">SHOP-IT</span>
+            </a>
+            <div class="flex items-center space-x-6">
+                <a href="accounts.html" class="hover:text-indigo-600"><i class="fas fa-user text-xl"></i></a>
+                <a href="cart.html" class="hover:text-indigo-600 relative">
+                    <i class="fas fa-shopping-cart text-xl"></i>
+                    <span class="cart-count absolute -top-2 -right-2 bg-indigo-600 text-white text-xs px-1.5 rounded-full">0</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="max-w-7xl mx-auto px-6 py-8">
+        <h1 class="text-4xl font-bold mb-8">My Wishlist</h1>
+        <div id="wishlist-products" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <!-- Wishlist items will be loaded here -->
+        </div>
+    </section>
+
+    <footer class="bg-gray-900 text-white py-16 px-6 mt-16">
+        <div class="max-w-7xl mx-auto text-center text-gray-400">
+            <p>&copy; 2026 SHOP-IT. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const wishlist = getWishlistItems();
+            const container = document.getElementById('wishlist-products');
+
+            if (wishlist.length === 0) {
+                container.innerHTML = `
+                    <div class="col-span-full text-center py-12">
+                        <i class="fas fa-heart text-6xl text-gray-400 mb-4"></i>
+                        <p class="text-gray-600 text-lg mb-4">Your wishlist is empty</p>
+                        <a href="index.html" class="inline-block bg-indigo-600 text-white px-6 py-2 rounded-lg hover:bg-indigo-700">
+                            Start Shopping
+                        </a>
+                    </div>
+                `;
+                return;
+            }
+
+            const wishlistProducts = wishlist.map(id => getProductById(id)).filter(p => p);
+            loadProducts('all');
+            
+            container.innerHTML = wishlistProducts.map(product => `
+                <div class="bg-white rounded-lg shadow-md hover:shadow-xl transition group overflow-hidden">
+                    <div class="relative aspect-square bg-gray-200 overflow-hidden flex items-center justify-center">
+                        <i class="fas fa-image text-4xl text-gray-400"></i>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-bold truncate mb-2">${product.name}</h3>
+                        <div class="flex justify-between items-center mb-4">
+                            <span class="text-2xl font-black text-indigo-600">${formatPrice(product.price)}</span>
+                        </div>
+                        <div class="flex space-x-2">
+                            <button onclick="addToCart(${product.id})" class="flex-1 bg-indigo-600 text-white py-2 rounded hover:bg-indigo-700 transition text-sm font-bold">
+                                Add to Cart
+                            </button>
+                            <button onclick="toggleWishlist(${product.id})" class="w-10 border-2 border-red-600 text-red-600 rounded hover:bg-red-50 transition">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        });
+    </script>
+</body>
+</html>

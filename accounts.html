@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Account | SHOP-IT</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-gray-50">
+
+    <!-- Navigation -->
+    <nav class="sticky top-0 z-50 bg-white shadow-md">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="index.html" class="flex items-center space-x-2">
+                <i class="fas fa-store text-indigo-600 text-2xl"></i>
+                <span class="text-2xl font-black text-indigo-600">SHOP-IT</span>
+            </a>
+            <div class="flex items-center space-x-6">
+                <a href="accounts.html" class="hover:text-indigo-600"><i class="fas fa-user text-xl"></i></a>
+                <a href="cart.html" class="hover:text-indigo-600 relative">
+                    <i class="fas fa-shopping-cart text-xl"></i>
+                    <span class="cart-count absolute -top-2 -right-2 bg-indigo-600 text-white text-xs px-1.5 rounded-full">0</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Account Page Content -->
+    <section class="max-w-7xl mx-auto px-6 py-8">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+            <!-- Sidebar -->
+            <div class="md:col-span-1">
+                <div class="bg-white rounded-lg shadow p-6 sticky top-24">
+                    <div class="text-center mb-6">
+                        <div class="w-16 h-16 bg-indigo-600 rounded-full mx-auto flex items-center justify-center text-white text-2xl mb-3">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <h3 id="user-name" class="font-bold">Guest User</h3>
+                        <p id="user-email" class="text-sm text-gray-600">Not logged in</p>
+                    </div>
+
+                    <ul class="space-y-3">
+                        <li>
+                            <a href="#overview" class="account-tab flex items-center space-x-3 p-3 rounded-lg hover:bg-indigo-50 cursor-pointer active" data-tab="overview">
+                                <i class="fas fa-home text-indigo-600"></i>
+                                <span>Dashboard</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#orders" class="account-tab flex items-center space-x-3 p-3 rounded-lg hover:bg-indigo-50 cursor-pointer" data-tab="orders">
+                                <i class="fas fa-box text-indigo-600"></i>
+                                <span>Orders</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#profile" class="account-tab flex items-center space-x-3 p-3 rounded-lg hover:bg-indigo-50 cursor-pointer" data-tab="profile">
+                                <i class="fas fa-user-cog text-indigo-600"></i>
+                                <span>Profile</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#addresses" class="account-tab flex items-center space-x-3 p-3 rounded-lg hover:bg-indigo-50 cursor-pointer" data-tab="addresses">
+                                <i class="fas fa-map-marker-alt text-indigo-600"></i>
+                                <span>Addresses</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#wishlist" class="account-tab flex items-center space-x-3 p-3 rounded-lg hover:bg-indigo-50 cursor-pointer" data-tab="wishlist">
+                                <i class="fas fa-heart text-indigo-600"></i>
+                                <span>Wishlist</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#settings" class="account-tab flex items-center space-x-3 p-3 rounded-lg hover:bg-indigo-50 cursor-pointer" data-tab="settings">
+                                <i class="fas fa-cog text-indigo-600"></i>
+                                <span>Settings</span>
+                            </a>
+                        </li>
+                    </ul>
+
+                    <button id="logout-btn" class="w-full mt-6 border border-red-600 text-red-600 py-2 rounded-lg font-bold hover:bg-red-50">
+                        Logout
+                    </button>
+                </div>
+            </div>
+
+            <!-- Main Content -->
+            <div class="md:col-span-3">
+                <!-- Overview Tab -->
+                <div id="overview" class="account-content bg-white rounded-lg shadow p-6">
+                    <h2 class="text-3xl font-bold mb-6">Dashboard</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                        <div class="bg-indigo-50 border border-indigo-200 rounded-lg p-6 text-center">
+                            <p class="text-gray-600 text-sm">Total Orders</p>
+                            <p id="total-orders" class="text-4xl font-bold text-indigo-600">0</p>
+                        </div>
+                        <div class="bg-green-50 border border-green-200 rounded-lg p-6 text-center">
+                            <p class="text-gray-600 text-sm">Total Spent</p>
+                            <p id="total-spent" class="text-4xl font-bold text-green-600">$0.00</p>
+                        </div>
+                        <div class="bg-purple-50 border border-purple-200 rounded-lg p-6 text-center">
+                            <p class="text-gray-600 text-sm">Loyalty Points</p>
+                            <p id="loyalty-points" class="text-4xl font-bold text-purple-600">0</p>
+                        </div>
+                    </div>
+
+                    <h3 class="text-2xl font-bold mb-4">Recent Orders</h3>
+                    <div id="recent-orders" class="space-y-4">
+                        <p class="text-gray-600">No recent orders</p>
+                    </div>
+                </div>
+
+                <!-- Orders Tab -->
+                <div id="orders" class="account-content bg-white rounded-lg shadow p-6 hidden">
+                    <h2 class="text-3xl font-bold mb-6">My Orders</h2>
+                    <div id="all-orders" class="space-y-4">
+                        <p class="text-gray-600">No orders yet. <a href="index.html" class="text-indigo-600 hover:underline">Start shopping</a></p>
+                    </div>
+                </div>
+
+                <!-- Profile Tab -->
+                <div id="profile" class="account-content bg-white rounded-lg shadow p-6 hidden">
+                    <h2 class="text-3xl font-bold mb-6">Profile Information</h2>
+                    <form id="profile-form" class="space-y-4 max-w-2xl">
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <label class="block font-medium mb-2">First Name</label>
+                                <input type="text" id="profile-first-name" placeholder="First Name" class="w-full px-4 py-2 border border-gray-300 rounded-lg">
+                            </div>
+                            <div>
+                                <label class="block font-medium mb-2">Last Name</label>
+                                <input type="text" id="profile-last-name" placeholder="Last Name" class="w-full px-4 py-2 border border-gray-300 rounded-lg">
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block font-medium mb-2">Email</label>
+                            <input type="email" id="profile-email" placeholder="Email" class="w-full px-4 py-2 border border-gray-300 rounded-lg">
+                        </div>
+                        <div>
+                            <label class="block font-medium mb-2">Phone</label>
+                            <input type="tel" id="profile-phone" placeholder="Phone Number" class="w-full px-4 py-2 border border-gray-300 rounded-lg">
+                        </div>
+                        <div>
+                            <label class="block font-medium mb-2">Date of Birth</label>
+                            <input type="date" id="profile-dob" class="w-full px-4 py-2 border border-gray-300 rounded-lg">
+                        </div>
+                        <button type="submit" class="bg-indigo-600 text-white px-8 py-2 rounded-lg font-bold hover:bg-indigo-700">
+                            Save Changes
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Addresses Tab -->
+                <div id="addresses" class="account-content bg-white rounded-lg shadow p-6 hidden">
+                    <h2 class="text-3xl font-bold mb-6">My Addresses</h2>
+                    <button id="add-address-btn" class="mb-6 bg-indigo-600 text-white px-6 py-2 rounded-lg font-bold hover:bg-indigo-700">
+                        <i class="fas fa-plus mr-2"></i> Add New Address
+                    </button>
+                    <div id="addresses-list" class="space-y-4">
+                        <p class="text-gray-600">No saved addresses</p>
+                    </div>
+
+                    <!-- Add Address Form (hidden by default) -->
+                    <div id="address-form" class="hidden mt-6 border-t pt-6">
+                        <h3 class="font-bold mb-4">Add New Address</h3>
+                        <form id="new-address-form" class="space-y-4 max-w-2xl">
+                            <input type="text" placeholder="Address Name (e.g., Home, Work)" class="w-full px-4 py-2 border border-gray-300 rounded-lg">
+                            <div class="grid grid-cols-2 gap-4">
+                                <input type="text" placeholder="First Name" class="px-4 py-2 border border-gray-300 rounded-lg">
+                                <input type="text" placeholder="Last Name" class="px-4 py-2 border border-gray-300 rounded-lg">
+                            </div>
+                            <input type="text" placeholder="Street Address" class="w-full px-4 py-2 border border-gray-300 rounded-lg">
+                            <div class="grid grid-cols-3 gap-4">
+                                <input type="text" placeholder="City" class="px-4 py-2 border border-gray-300 rounded-lg">
+                                <input type="text" placeholder="State" class="px-4 py-2 border border-gray-300 rounded-lg">
+                                <input type="text" placeholder="ZIP Code" class="px-4 py-2 border border-gray-300 rounded-lg">
+                            </div>
+                            <div class="flex space-x-4">
+                                <button type="submit" class="bg-indigo-600 text-white px-8 py-2 rounded-lg font-bold hover:bg-indigo-700">
+                                    Save Address
+                                </button>
+                                <button type="button" id="cancel-address-btn" class="border border-gray-300 px-8 py-2 rounded-lg font-bold hover:bg-gray-50">
+                                    Cancel
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Wishlist Tab -->
+                <div id="wishlist" class="account-content bg-white rounded-lg shadow p-6 hidden">
+                    <h2 class="text-3xl font-bold mb-6">My Wishlist</h2>
+                    <div id="wishlist-items" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <p class="text-gray-600">No items in wishlist</p>
+                    </div>
+                </div>
+
+                <!-- Settings Tab -->
+                <div id="settings" class="account-content bg-white rounded-lg shadow p-6 hidden">
+                    <h2 class="text-3xl font-bold mb-6">Settings</h2>
+                    <div class="space-y-6 max-w-2xl">
+                        <div class="border-b pb-6">
+                            <h3 class="font-bold mb-2">Email Notifications</h3>
+                            <label class="flex items-center space-x-3 cursor-pointer">
+                                <input type="checkbox" checked class="w-4 h-4">
+                                <span>Order updates</span>
+                            </label>
+                            <label class="flex items-center space-x-3 cursor-pointer mt-2">
+                                <input type="checkbox" checked class="w-4 h-4">
+                                <span>Promotional emails</span>
+                            </label>
+                        </div>
+
+                        <div class="border-b pb-6">
+                            <h3 class="font-bold mb-2">Password</h3>
+                            <button class="text-indigo-600 hover:underline">Change Password</button>
+                        </div>
+
+                        <div class="border-b pb-6">
+                            <h3 class="font-bold mb-2">Two-Factor Authentication</h3>
+                            <p class="text-gray-600 text-sm mb-3">Enhance your account security</p>
+                            <button class="bg-indigo-600 text-white px-6 py-2 rounded-lg font-bold hover:bg-indigo-700">
+                                Enable 2FA
+                            </button>
+                        </div>
+
+                        <div>
+                            <h3 class="font-bold mb-2 text-red-600">Danger Zone</h3>
+                            <button id="delete-account-btn" class="border border-red-600 text-red-600 px-6 py-2 rounded-lg font-bold hover:bg-red-50">
+                                Delete Account
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-16 px-6 mt-16">
+        <div class="max-w-7xl mx-auto text-center text-gray-400">
+            <p>&copy; 2026 SHOP-IT. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            loadAccountData();
+
+            // Tab switching
+            document.querySelectorAll('.account-tab').forEach(tab => {
+                tab.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const tabName = tab.dataset.tab;
+                    
+                    // Hide all tabs
+                    document.querySelectorAll('.account-tab').forEach(t => t.classList.remove('active'));
+                    document.querySelectorAll('.account-content').forEach(content => content.classList.add('hidden'));
+                    
+                    // Show selected tab
+                    tab.classList.add('active');
+                    document.getElementById(tabName).classList.remove('hidden');
+                });
+            });
+
+            // Profile form submit
+            document.getElementById('profile-form').addEventListener('submit', (e) => {
+                e.preventDefault();
+                const profileData = {
+                    firstName: document.getElementById('profile-first-name').value,
+                    lastName: document.getElementById('profile-last-name').value,
+                    email: document.getElementById('profile-email').value,
+                    phone: document.getElementById('profile-phone').value,
+                    dob: document.getElementById('profile-dob').value
+                };
+                localStorage.setItem('userProfile', JSON.stringify(profileData));
+                showNotification('Profile updated successfully!');
+            });
+
+            // Add address button
+            document.getElementById('add-address-btn').addEventListener('click', () => {
+                document.getElementById('address-form').classList.toggle('hidden');
+            });
+
+            // Cancel address
+            document.getElementById('cancel-address-btn').addEventListener('click', () => {
+                document.getElementById('address-form').classList.add('hidden');
+            });
+
+            // Add address form submit
+            document.getElementById('new-address-form').addEventListener('submit', (e) => {
+                e.preventDefault();
+                showNotification('Address added successfully!');
+                document.getElementById('address-form').classList.add('hidden');
+            });
+
+            // Logout button
+            document.getElementById('logout-btn').addEventListener('click', () => {
+                localStorage.removeItem('userProfile');
+                localStorage.removeItem('cart');
+                showNotification('Logged out successfully');
+                setTimeout(() => {
+                    window.location.href = 'index.html';
+                }, 1500);
+            });
+
+            // Load wishlist items
+            const wishlistDiv = document.getElementById('wishlist-items');
+            const wishlist = getWishlistItems();
+            
+            if (wishlist.length === 0) {
+                wishlistDiv.innerHTML = '<p class="text-gray-600">No items in wishlist</p>';
+            } else {
+                const wishlistProducts = wishlist.map(id => getProductById(id)).filter(p => p);
+                wishlistDiv.innerHTML = wishlistProducts.map(product => `
+                    <div class="bg-white rounded-lg shadow p-4 hover:shadow-lg transition">
+                        <div class="aspect-square bg-gray-200 rounded flex items-center justify-center mb-3">
+                            <i class="fas fa-image text-3xl text-gray-400"></i>
+                        </div>
+                        <h3 class="font-bold text-sm mb-1">${product.name}</h3>
+                        <p class="text-indigo-600 font-bold text-sm mb-3">${formatPrice(product.price)}</p>
+                        <div class="flex space-x-2">
+                            <button onclick="addToCart(${product.id})" class="flex-1 bg-indigo-600 text-white py-2 rounded text-xs font-bold hover:bg-indigo-700">
+                                Add to Cart
+                            </button>
+                            <button onclick="toggleWishlist(${product.id})" class="px-3 border border-red-600 text-red-600 rounded text-xs hover:bg-red-50">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </div>
+                `).join('');
+            }
+
+            updateCartCount();
+        });
+    </script>
+</body>
+</html>
